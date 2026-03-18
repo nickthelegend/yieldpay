@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Syne } from "next/font/google";
+import { Archivo, Public_Sans } from "next/font/google";
 import "./globals.css";
 import { WalletProvider } from "@/hooks/useWallet";
 import { ToastProvider } from "@/components/Toast";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space",
-});
-
-const syne = Syne({
+const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["800"],
+  weight: ["900"],
+});
+
+const publicSans = Public_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${spaceGrotesk.variable} ${syne.variable} antialiased font-space`}>
+      <body className={`${publicSans.variable} ${archivo.variable} antialiased font-body`}>
         <ConvexClientProvider>
           <WalletProvider>
             <ToastProvider>

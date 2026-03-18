@@ -28,7 +28,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const showToast = useCallback((type: Toast['type'], message: string, txHash?: string) => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, type, message, txHash }]);
-    
+
     if (type !== 'loading') {
       setTimeout(() => hideToast(id), 4000);
     }
@@ -38,7 +38,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>
       {children}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[100] w-[340px] pointer-events-none flex flex-col gap-3 font-archivo italic">
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[100] w-[340px] pointer-events-none flex flex-col gap-3 font-body ">
         <AnimatePresence>
           {toasts.map((toast) => (
             <motion.div
@@ -47,10 +47,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
               className={clsx(
-                "neo-brutal p-4 pointer-events-auto flex items-center gap-3 italic",
-                toast.type === 'success' && "bg-[#A8E6CF]",
-                toast.type === 'error' && "bg-[#FF8FAB]",
-                toast.type === 'loading' && "bg-[#FFD93D]"
+                "neo-brutal p-4 pointer-events-auto flex items-center gap-3 wiggle ",
+                toast.type === 'success' && "bg-primary", // Lime green from theme
+                toast.type === 'error' && "bg-card-1",    // Orange from theme
+                toast.type === 'loading' && "bg-accent"   // Yellow from theme
               )}
             >
               {toast.type === 'loading' ? (
@@ -60,10 +60,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               ) : (
                 <XCircle size={20} />
               )}
-              <div className="flex-1 italic text-left">
-                <p className="text-[10px] font-black uppercase leading-tight italic">{toast.message}</p>
+              <div className="flex-1 text-left">
+                <p className="text-[10px] font-black uppercase leading-tight ">{toast.message}</p>
                 {toast.txHash && (
-                  <p className="text-[8px] font-mono opacity-60 mt-1 italic break-all">
+                  <p className="text-[8px] font-mono opacity-60 mt-1 break-all">
                     Tx: {toast.txHash.slice(0, 10)}...
                   </p>
                 )}

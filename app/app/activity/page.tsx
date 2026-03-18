@@ -21,8 +21,8 @@ export default function ActivityPage() {
   const logs = useQuery(api.agent.getAgentLogs, { walletAddress: address ?? "" });
 
   return (
-    <div className="p-6 space-y-6 italic text-left font-archivo">
-      <h1 className="text-3xl font-black italic tracking-tighter text-left">🤖 Agent Activity</h1>
+    <div className="p-6 space-y-6 text-left font-body">
+      <h1 className="text-3xl font-black tracking-tighter text-left">🤖 Agent Activity</h1>
 
       {!logs ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4 opacity-20">
@@ -30,15 +30,15 @@ export default function ActivityPage() {
               <p className="text-[10px] font-black uppercase">Fetching Logs...</p>
           </div>
       ) : logs.length === 0 ? (
-          <div className="neo-card p-12 text-center space-y-6 italic">
+          <div className="neo-card p-12 text-center space-y-6 ">
               <div className="text-8xl">🤖</div>
-              <div className="space-y-1 italic text-center">
-                  <h3 className="text-xl font-black uppercase italic text-center">No activity yet</h3>
-                  <p className="text-[10px] font-bold uppercase opacity-40 italic text-center">Start a BNPL order to see the agent in action.</p>
+              <div className="space-y-1 text-center">
+                  <h3 className="text-xl font-black uppercase text-center">No activity yet</h3>
+                  <p className="text-[10px] font-bold uppercase opacity-40 text-center">Start a BNPL order to see the agent in action.</p>
               </div>
           </div>
       ) : (
-          <div className="space-y-4 italic">
+          <div className="space-y-4 ">
               {logs.map((log, i) => {
                   const meta = ACTION_MAP[log.action] || { emoji: '⚙️', color: 'bg-white' };
                   const timeAgo = Math.floor((Date.now() - log.createdAt) / 60000);
@@ -49,29 +49,29 @@ export default function ActivityPage() {
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: i * 0.05 }}
-                        className="neo-brutal bg-white overflow-hidden flex flex-col italic"
+                        className="neo-brutal bg-white overflow-hidden flex flex-col "
                       >
-                          <div className="p-4 flex gap-4 italic items-start">
-                              <div className={`w-10 h-10 ${meta.color} border-2 border-border-black rounded-xl flex items-center justify-center text-xl shrink-0 italic`}>
+                          <div className="p-4 flex gap-4 items-start">
+                              <div className={`w-10 h-10 ${meta.color} border-2 border-border-black rounded-xl flex items-center justify-center text-xl shrink-0 `}>
                                   {meta.emoji}
                               </div>
-                              <div className="flex-1 space-y-1 italic text-left">
-                                  <div className="flex justify-between items-start italic">
-                                      <p className="text-[10px] font-black uppercase italic text-left">{log.action.replace('_', ' ')}</p>
-                                      <div className="flex items-center gap-1 opacity-40 italic">
+                              <div className="flex-1 space-y-1 text-left">
+                                  <div className="flex justify-between items-start ">
+                                      <p className="text-[10px] font-black uppercase text-left">{log.action.replace('_', ' ')}</p>
+                                      <div className="flex items-center gap-1 opacity-40 ">
                                           <Clock size={10} />
-                                          <span className="text-[8px] font-bold uppercase italic">{timeAgo < 1 ? 'Just now' : `${timeAgo}m ago`}</span>
+                                          <span className="text-[8px] font-bold uppercase ">{timeAgo < 1 ? 'Just now' : `${timeAgo}m ago`}</span>
                                       </div>
                                   </div>
-                                  <p className="text-[11px] font-bold leading-tight italic text-left">{log.details}</p>
+                                  <p className="text-[11px] font-bold leading-tight text-left">{log.details}</p>
                               </div>
                           </div>
                           
                           <div className={`h-2 w-full border-t-2 border-border-black ${log.success ? 'bg-secondary' : 'bg-card-1'}`} />
                           
                           {log.txHash && (
-                              <div className="px-4 py-2 bg-zinc-50 border-t-2 border-border-black flex justify-between items-center italic">
-                                  <span className="text-[8px] font-mono opacity-40 truncate italic text-left">TX: {log.txHash}</span>
+                              <div className="px-4 py-2 bg-zinc-50 border-t-2 border-border-black flex justify-between items-center ">
+                                  <span className="text-[8px] font-mono opacity-40 truncate text-left">TX: {log.txHash}</span>
                                   <ExternalLink size={10} className="opacity-40" />
                               </div>
                           )}
